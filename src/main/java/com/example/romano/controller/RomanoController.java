@@ -18,7 +18,7 @@ public class RomanoController {
         try {
             return String.valueOf(convertirRomanoAEntero(romano));
         } catch (IllegalArgumentException e) {
-            return "Número romano inválido";
+            return "Invalid number";
         }
     }
 
