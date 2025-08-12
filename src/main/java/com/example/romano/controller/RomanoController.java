@@ -13,7 +13,44 @@ public class RomanoController {
         }
         return convertirNumeroRomano(numero);
     }
+    @GetMapping("/convertir/{romano}")
+    public String convertirAEntero(@PathVariable String romano) {
+        try {
+            return String.valueOf(convertirRomanoAEntero(romano));
+        } catch (IllegalArgumentException e) {
+            return "Número romano inválido";
+        }
+    }
 
+    private int convertirRomanoAEntero(String romano) {
+        int resultado = 0;
+        int anterior = 0;
+
+        for (int i = romano.length() - 1; i >= 0; i--) {
+            int valor = valorRomano(romano.charAt(i));
+            if (valor < anterior) {
+                resultado -= valor;
+            } else {
+                resultado += valor;
+            }
+            anterior = valor;
+        }
+
+        return resultado;
+    }
+
+    private int valorRomano(char caracter) {
+        switch (caracter) {
+            case 'I': return 1;
+            case 'V': return 5;
+            case 'X': return 10;
+            case 'L': return 50;
+            case 'C': return 100;
+            case 'D': return 500;
+            case 'M': return 1000;
+            default: throw new IllegalArgumentException("Carácter romano inválido: " + caracter);
+        }
+    }
     private String convertirNumeroRomano(int numero) {
         String[] miles = {"", "M", "MM", "MMM"};
         String[] centenas = {"", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"};
