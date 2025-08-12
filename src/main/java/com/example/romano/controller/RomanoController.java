@@ -9,7 +9,7 @@ public class RomanoController {
     @GetMapping("/{numero}")
     public String convertirARomano(@PathVariable int numero) {
         if (numero <= 0 || numero > 3999) {
-            return "Número fuera de rango (1-3999)";
+            return "Number out of range (1-3999)";
         }
         return convertirNumeroRomano(numero);
     }
